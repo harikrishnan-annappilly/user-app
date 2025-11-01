@@ -6,8 +6,8 @@ Welcome to the **User Authentication App**! 🎉 This project lets you register,
 
 ## 🌐 Base URLs
 
-- **API:** `http://localhost:5000/api/`
-- **Frontend:** `http://localhost:5000/`
+-   **API:** `http://localhost:5000/api/`
+-   **Frontend:** `http://localhost:5000/`
 
 ---
 
@@ -15,16 +15,16 @@ Welcome to the **User Authentication App**! 🎉 This project lets you register,
 
 ### 1️⃣ Create User
 
-- **URL:** `/api/create_user`
-- **Method:** `POST`
-- **Request Body (JSON):**
+-   **URL:** `/api/create_user`
+-   **Method:** `POST`
+-   **Request Body (JSON):**
     ```json
     {
         "username": "string",
         "password": "string"
     }
     ```
-- **Responses:**
+-   **Responses:**
     -   `201 Created`: User created successfully
         ```json
         { "message": "User created successfully." }
@@ -37,16 +37,16 @@ Welcome to the **User Authentication App**! 🎉 This project lets you register,
 
 ### 2️⃣ Login User
 
-- **URL:** `/api/login`
-- **Method:** `POST`
-- **Request Body (JSON):**
+-   **URL:** `/api/login`
+-   **Method:** `POST`
+-   **Request Body (JSON):**
     ```json
     {
         "username": "string",
         "password": "string"
     }
     ```
-- **Responses:**
+-   **Responses:**
     -   `200 OK`: Login successful
         ```json
         { "success": true, "message": "Login successful" }
@@ -62,9 +62,9 @@ Welcome to the **User Authentication App**! 🎉 This project lets you register,
 
 ### 3️⃣ Show All Users
 
-- **URL:** `/api/users`
-- **Method:** `GET`
-- **Response:**
+-   **URL:** `/api/users`
+-   **Method:** `GET`
+-   **Response:**
     -   `200 OK`: List of all usernames
         ```json
         { "users": ["user1", "user2", ...] }
@@ -76,18 +76,18 @@ Welcome to the **User Authentication App**! 🎉 This project lets you register,
 
 Enjoy a clean, Bootstrap-powered web interface:
 
-- `/` — Home page 🏠
-- `/register` — Register a new user 📝
-- `/login` — Login as a user 🔑
-- `/users` — Show all users 👥
+-   `/` — Home page 🏠
+-   `/register` — Register a new user 📝
+-   `/login` — Login as a user 🔑
+-   `/users` — Show all users 👥
 
 ---
 
 ## 💡 Notes
 
-- All API endpoints accept and return JSON.
-- User data is **not persistent** and will be lost when the server restarts. (Perfect for demos and learning!)
-- For persistent storage, check out the database-backed version.
+-   All API endpoints accept and return JSON.
+-   User data is **not persistent** and will be lost when the server restarts. (Perfect for demos and learning!)
+-   For persistent storage, check out the database-backed version.
 
 ---
 

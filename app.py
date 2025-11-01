@@ -1,7 +1,20 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-users = {}
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+
+class User(db.Model):
+    username = db.Column(db.String(80), primary_key=True)
+    password = db.Column(db.String(120), nullable=False)
+
+
+with app.app_context():
+    db.create_all()
 
 
 # API endpoints
@@ -12,9 +25,11 @@ def api_create_user():
     password = data.get("password")
     if not username or not password:
         return jsonify({"error": "Username and password required"}), 400
-    if username in users:
+    if User.query.filter_by(username=username).first():
         return jsonify({"error": "User already exists"}), 400
-    users[username] = password
+    user = User(username=username, password=password)
+    db.session.add(user)
+    db.session.commit()
     return jsonify({"message": "User created successfully."}), 201
 
 
@@ -23,9 +38,10 @@ def api_login():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-    if username not in users:
+    user = User.query.filter_by(username=username).first()
+    if not user:
         return jsonify({"success": False, "error": "User not found"}), 404
-    if users[username] == password:
+    if user.password == password:
         return jsonify({"success": True, "message": "Login successful"})
     else:
         return jsonify({"success": False, "error": "Invalid password"}), 401
@@ -33,7 +49,8 @@ def api_login():
 
 @app.route("/api/users", methods=["GET"])
 def api_show_users():
-    return jsonify({"users": list(users.keys())})
+    users = [user.username for user in User.query.all()]
+    return jsonify({"users": users})
 
 
 # Frontend endpoints
@@ -50,10 +67,12 @@ def register():
         password = request.form.get("password")
         if not username or not password:
             message = "Username and password required."
-        elif username in users:
+        elif User.query.filter_by(username=username).first():
             message = "User already exists."
         else:
-            users[username] = password
+            user = User(username=username, password=password)
+            db.session.add(user)
+            db.session.commit()
             message = "User created successfully."
     return render_template("register.html", message=message)
 
@@ -64,9 +83,10 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        if username not in users:
+        user = User.query.filter_by(username=username).first()
+        if not user:
             message = "User not found."
-        elif users[username] == password:
+        elif user.password == password:
             message = "Login successful."
         else:
             message = "Invalid password."
@@ -75,7 +95,8 @@ def login():
 
 @app.route("/users")
 def show_users():
-    return render_template("users.html", users=list(users.keys()))
+    users = [user.username for user in User.query.all()]
+    return render_template("users.html", users=users)
 
 
 if __name__ == "__main__":
