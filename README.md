@@ -1,14 +1,13 @@
-# User Authentication API (Flask + SQLAlchemy)
+# User Authentication App (Flask)
 
-This API provides endpoints for user registration, login, and listing all users. Data is stored in a SQLite database using SQLAlchemy ORM.
+This application provides both API endpoints and a minimal frontend for user registration, login, and listing users. User data is stored in a Python dictionary (in-memory, not persistent).
 
-## Base URL
+## Base URLs
 
-```
-http://localhost:5000/api/
-```
+-   API: `http://localhost:5000/api/`
+-   Frontend: `http://localhost:5000/`
 
-## Endpoints
+## API Endpoints
 
 ### 1. Create User
 
@@ -67,12 +66,21 @@ http://localhost:5000/api/
         { "users": ["user1", "user2", ...] }
         ```
 
+## Frontend Endpoints
+
+The app also provides a simple web interface using Bootstrap-based templates:
+
+-   `/` — Home page
+-   `/register` — Register a new user
+-   `/login` — Login as a user
+-   `/users` — Show all users
+
 ## Notes
 
--   All endpoints accept and return JSON.
--   Passwords are stored in plain text (for demo purposes only).
--   The database file is `users.db` in the project directory.
+-   All API endpoints accept and return JSON.
+-   User data is not persistent and will be lost when the server restarts.
+-   For persistent storage, use a database-backed version.
 
 ---
 
-For frontend usage and more features, see the main application code.
+For more details, see the main application code and the `templates` folder.
