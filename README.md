@@ -1,6 +1,8 @@
 # 🚀 User Authentication App (Flask)
 
-Welcome to the **User Authentication App**! 🎉 This project lets you register, log in, and view users with a super simple API and a modern, minimal frontend. All data is stored in-memory (so every restart is a fresh start!).
+> This is a simple user auth app using Flask, created for testing out the capabilities of agents available in VS Code.
+
+Welcome to the **User Authentication App**! 🎉 This project lets you register, log in, and view users with a super simple API and a modern, minimal frontend. All data is stored in a SQLite database via SQLAlchemy (so your users persist between restarts!).
 
 ---
 
@@ -86,8 +88,8 @@ Enjoy a clean, Bootstrap-powered web interface:
 ## 💡 Notes
 
 -   All API endpoints accept and return JSON.
--   User data is **not persistent** and will be lost when the server restarts. (Perfect for demos and learning!)
--   For persistent storage, check out the database-backed version.
+-   User data is **persistent** and stored in `users.db` via SQLAlchemy.
+-   For in-memory demo, see the earlier version in this repo.
 
 ---
 
